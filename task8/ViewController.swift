@@ -12,7 +12,7 @@ import AVFoundation
 // camera app
 
 
-class ViewController: UIViewController,AVCapturePhotoCaptureDelegate {
+class ViewController: UIViewController,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
 
 //MARK: property
     
@@ -80,7 +80,7 @@ class ViewController: UIViewController,AVCapturePhotoCaptureDelegate {
         settingsForMonitoring.isAutoStillImageStabilizationEnabled = true
         settingsForMonitoring.isHighResolutionPhotoEnabled = false
         // シャッターを切る
-        stillImageOutput?.capturePhoto(with: settingsForMonitoring, delegate: self as! AVCapturePhotoCaptureDelegate)
+        stillImageOutput?.capturePhoto(with: settingsForMonitoring, delegate: self as AVCapturePhotoCaptureDelegate)
     }
     
     
@@ -96,6 +96,19 @@ class ViewController: UIViewController,AVCapturePhotoCaptureDelegate {
             UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
         }
     }
+    @IBAction func photo(_ sender: Any) {
     
+    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+    
+    let picker = UIImagePickerController()
+    picker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+    picker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate // UINavigationControllerDelegate と　UIImagePickerControllerDelegateを実装する
+    picker.sourceType = UIImagePickerControllerSourceType.camera
+    
+    self.present(picker, animated: true, completion: nil)
+        }
+    }
 }
+
+
 
