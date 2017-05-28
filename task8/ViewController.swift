@@ -12,7 +12,7 @@ import AVFoundation
 // camera app
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,AVCapturePhotoCaptureDelegate {
 
 //MARK: property
     
